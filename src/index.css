@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.85) translateY(12px); opacity: 0; }
+  70% { transform: scale(1.03); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  15% { transform: translateX(-8px) rotate(-1deg); }
+  30% { transform: translateX(8px) rotate(1deg); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(6px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(3px); }
+}
+
+@keyframes slashHit {
+  0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+  40% { transform: scale(1.4) rotate(10deg); opacity: 1; }
+  100% { transform: scale(0.8) rotate(0); opacity: 0; }
+}
+
+@keyframes floatUp {
+  0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-60px); opacity: 0; }
+}
+
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 15px var(--glow, rgba(168,85,247,0.5)); }
+  50% { box-shadow: 0 0 35px var(--glow, rgba(168,85,247,0.8)); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotateY(-6deg) rotateX(4deg); }
+  50% { transform: translateY(-14px) rotateY(6deg) rotateX(-2deg); }
+}
+
+@keyframes cardReveal {
+  0% { transform: rotateY(90deg) scale(0.7); opacity: 0; }
+  60% { transform: rotateY(-8deg) scale(1.04); }
+  100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes particleBurst {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-40px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes enemyEnter {
+  0% { transform: scale(0) rotate(180deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(-5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+@keyframes winBurst {
+  0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+  40% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+  70% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  14% { transform: scale(1.1); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.08); }
+  70% { transform: scale(1); }
+}
+
+@keyframes countUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes borderGlow {
+  0%,100% { border-color: rgba(168,85,247,0.4); }
+  50% { border-color: rgba(168,85,247,0.9); }
+}
+
+@keyframes turnIndicator {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.card-shine {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 20px currentColor;
+}
+
+/* ===== 3D Battle Animations ===== */
+.battle-stage { perspective: 1100px; }
+
+/* Player (bottom) lunges UP toward enemy then snaps back, with 3D tilt */
+@keyframes lungeUp {
+  0%   { transform: translateY(0) rotateX(0deg) scale(1); }
+  35%  { transform: translateY(-46px) rotateX(28deg) scale(1.12); }
+  50%  { transform: translateY(-58px) rotateX(34deg) scale(1.16); }
+  70%  { transform: translateY(-10px) rotateX(8deg) scale(1.04); }
+  100% { transform: translateY(0) rotateX(0deg) scale(1); }
+}
+.fx-lunge-up { animation: lungeUp 0.62s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-style: preserve-3d; }
+
+/* Enemy (top) lunges DOWN toward player */
+@keyframes lungeDown {
+  0%   { transform: translateY(0) rotateX(0deg) scale(1); }
+  35%  { transform: translateY(46px) rotateX(-28deg) scale(1.12); }
+  50%  { transform: translateY(58px) rotateX(-34deg) scale(1.16); }
+  70%  { transform: translateY(10px) rotateX(-8deg) scale(1.04); }
+  100% { transform: translateY(0) rotateX(0deg) scale(1); }
+}
+.fx-lunge-down { animation: lungeDown 0.62s cubic-bezier(0.34, 1.56, 0.64, 1) both; transform-style: preserve-3d; }
+
+/* Recoil + 3D spin when taking damage */
+@keyframes hit3d {
+  0%   { transform: rotateY(0) rotateZ(0) scale(1); filter: brightness(1); }
+  12%  { transform: rotateY(-22deg) rotateZ(-6deg) scale(0.92) translateX(10px); filter: brightness(2) saturate(0.4); }
+  26%  { transform: rotateY(20deg) rotateZ(5deg) scale(0.95) translateX(-8px); filter: brightness(1.5); }
+  42%  { transform: rotateY(-12deg) rotateZ(-3deg) scale(0.98) translateX(5px); filter: brightness(1.1); }
+  60%  { transform: rotateY(8deg) rotateZ(2deg) scale(1); filter: brightness(1); }
+  80%  { transform: rotateY(-3deg) scale(1); }
+  100% { transform: rotateY(0) rotateZ(0) scale(1); filter: brightness(1); }
+}
+.fx-hit3d { animation: hit3d 0.62s ease-out both; transform-style: preserve-3d; }
+
+/* Red damage flash overlay */
+@keyframes dmgFlash {
+  0% { opacity: 0; }
+  15% { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+.fx-dmg-flash { animation: dmgFlash 0.6s ease-out forwards; }
+
+/* Impact shockwave ring */
+@keyframes shockwave {
+  0%   { transform: translate(-50%,-50%) scale(0.2); opacity: 0.9; }
+  100% { transform: translate(-50%,-50%) scale(2.4); opacity: 0; }
+}
+.fx-shockwave { animation: shockwave 0.55s ease-out forwards; }
+
+/* Slash streak */
+@keyframes slashStreak {
+  0%   { transform: translate(-60%,-50%) rotate(-45deg) scaleX(0); opacity: 0; }
+  30%  { transform: translate(-50%,-50%) rotate(-45deg) scaleX(1.2); opacity: 1; }
+  100% { transform: translate(-40%,-50%) rotate(-45deg) scaleX(1.4); opacity: 0; }
+}
+.fx-slash { animation: slashStreak 0.45s ease-out forwards; }
+
+/* Special-move energy aura pulse */
+@keyframes auraPulse {
+  0% { box-shadow: 0 0 0 rgba(245,158,11,0); }
+  40% { box-shadow: 0 0 45px 8px rgba(245,158,11,0.85), 0 0 80px 20px rgba(239,68,68,0.5); }
+  100% { box-shadow: 0 0 0 rgba(245,158,11,0); }
+}
+.fx-aura { animation: auraPulse 0.7s ease-out both; }
+
+/* Spark particles */
+@keyframes sparkFly {
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
+}
+.fx-spark { animation: sparkFly 0.55s ease-out forwards; }
